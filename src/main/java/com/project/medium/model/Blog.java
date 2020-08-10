@@ -10,9 +10,11 @@ import java.util.Date;
 @Getter
 @Setter
   public class Blog {
-     @Id
+    private static final long serialVersionUID = 1L;
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
      private String title;
      private String content;
      private boolean status;
