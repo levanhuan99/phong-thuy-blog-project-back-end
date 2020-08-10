@@ -1,6 +1,5 @@
-package com.project.medium.model;
+package com.project.medium.model.auth;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,17 +20,18 @@ import java.util.Set;
     private String lastName;
 
     @Column(nullable = false,unique = true)
-    private String username; //Se dung nickname lam userName
+    private String nickName;
 
    @Column(nullable = false,unique = true)
-   private String email;
+   private String email;// Dung email de login
 
    @Column(nullable = false,unique = true)
     private String phoneNumber;
 
    @Column(nullable = false)
     private String password;
-   @Column(nullable = false)
+
+
     private Date birthDay;
 
    @Column(nullable = false)
@@ -43,6 +43,13 @@ import java.util.Set;
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "account_role",joinColumns = {@JoinColumn(name = "account_id")},inverseJoinColumns = {@JoinColumn(name = "role_id")})
   private Set<Role> roles;
+  //    @ManyToOne
+//    private Likes likes;
+//
+//    @OneToMany
+//    private Set<Comment> comments;
+
+
 
 
 }
