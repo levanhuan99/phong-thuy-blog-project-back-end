@@ -10,19 +10,25 @@ import java.util.Date;
 @Getter
 @Setter
   public class Blog {
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
      private String title;
+
+     @Column(nullable = false)
      private String content;
+
      private boolean status;
+
+     @Column(nullable = false)
      private Date postTime;
      private String image;
 //     @ManyToOne
 //     private Account account;
 //     @ManyToOne
 //    private Category category;
+
+
+
 
   }

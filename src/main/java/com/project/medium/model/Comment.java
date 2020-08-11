@@ -16,8 +16,10 @@ import java.util.Date;
     private Long id;
     private Date commentTime;
     private String content;
+
     @ManyToOne
     private Account account;
+
     @ManyToOne
     private Blog blog;
 }
