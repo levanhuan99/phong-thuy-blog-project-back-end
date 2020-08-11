@@ -107,7 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/api/blogs/list","api/blogs/*/edit","/login","/api/accounts").permitAll()
+                .antMatchers("/api/blogs/list","/login","/api/accounts/create").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));

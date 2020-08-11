@@ -32,7 +32,7 @@ public class AccountController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @PostMapping
+    @PostMapping("/create")
     public Boolean create(@Valid @RequestBody Account account) throws ValidationException {
         Set<Role> roles = new HashSet<Role>();
         String email = account.getEmail();
