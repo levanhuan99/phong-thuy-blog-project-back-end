@@ -1,30 +1,38 @@
 package com.project.medium.controllers;
 
 import com.project.medium.model.Blog;
+import com.project.medium.repository.BlogRepository;
 import com.project.medium.services.BlogCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.annotation.security.RolesAllowed;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
+@RequestMapping("api/blogs")
 public class BlogController {
     private BlogCrudService blogCrudService;
+
+    @Autowired
+    BlogRepository blogRepository;
 
     @Autowired
     public BlogController(BlogCrudService blogCrudService) {
         this.blogCrudService = blogCrudService;
     }
 
-    @RequestMapping(value = "api/blogs/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity<List<Blog>> findAllBlog() {
         List<Blog> blogs = blogCrudService.findAll();
         if (blogs.isEmpty()) {
@@ -36,7 +44,7 @@ public class BlogController {
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/blogs/{id}/search",
+    @RequestMapping(value = "/get-blog/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Blog> getBlogById(
@@ -50,18 +58,18 @@ public class BlogController {
         return new ResponseEntity<>(blog.get(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/blogs/create",
+    @RequestMapping(value = "/create",
             method = RequestMethod.POST)
-    public ResponseEntity<Blog> createBlog( @RequestBody Blog blogs,
+    public ResponseEntity<Blog> createBlog(@RequestBody Blog blogs,
             UriComponentsBuilder builder) {
         blogCrudService.save(blogs);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("api/blogs/{id}")
+        headers.setLocation(builder.path("/{id}")
                 .buildAndExpand(blogs.getId()).toUri());
         return new ResponseEntity<>(blogs, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "api/blogs/{id}/edit",
+    @RequestMapping(value = "/{id}/edit",
             method = RequestMethod.PUT)
     public ResponseEntity<Blog> updateBlog(@PathVariable("id") Long id, @RequestBody Blog blog) {
         Optional<Blog> currentBlog = blogCrudService
@@ -82,7 +90,7 @@ public class BlogController {
         return new ResponseEntity<>(currentBlog.get(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/blogs/{id}/delete",
+    @RequestMapping(value = "/{id}/delete",
             method = RequestMethod.DELETE)
     public ResponseEntity<Blog> deleteBlog( @PathVariable("id") Long id) {
 
@@ -93,6 +101,12 @@ public class BlogController {
         }
         blogCrudService.delete(blog.get());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{accountId}")
+    public ResponseEntity<List<Blog>> getBlogByAccountId(@PathVariable Long accountId){
+        List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
+        return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
 }
 

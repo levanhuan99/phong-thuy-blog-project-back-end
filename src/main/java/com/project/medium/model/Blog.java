@@ -36,6 +36,8 @@ import java.util.Set;
 //
      @ManyToOne
     private Category category;
+
+
 //
 //     @OneToMany
 //    private Set<Comment> comments;
