@@ -1,4 +1,4 @@
-package com.project.medium.service.account;
+package com.project.medium.services.account;
 
 import com.project.medium.model.auth.Account;
 import org.springframework.security.core.userdetails.UserDetailsService;

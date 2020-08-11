@@ -1,10 +1,10 @@
-package com.project.medium.service.account;
+package com.project.medium.services.account;
 
 import com.project.medium.model.auth.Account;
 import com.project.medium.model.auth.AccountPrinciple;
 import com.project.medium.model.auth.Role;
 import com.project.medium.repository.AccountRepository;
-import com.project.medium.service.role.RoleService;
+import com.project.medium.services.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

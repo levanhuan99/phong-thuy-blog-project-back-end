@@ -1,15 +1,14 @@
-package com.project.medium.controller;
+package com.project.medium.controllers;
 
 import com.project.medium.model.auth.Account;
 import com.project.medium.model.auth.Role;
 import com.project.medium.repository.AccountRepository;
 import com.project.medium.repository.RoleRepository;
-import com.project.medium.service.account.AccountService;
+import com.project.medium.services.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

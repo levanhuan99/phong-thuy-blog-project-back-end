@@ -26,6 +26,10 @@ import java.util.Set;
       this.name = role_admin;
     }
 
+  public Role(Long id) {
+    this.id = id;
+  }
+
   public Role() {
 
   }
