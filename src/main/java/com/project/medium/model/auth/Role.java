@@ -18,9 +18,12 @@ import java.util.Set;
     @Column(unique = true)
     private String name;
 
+    @ManyToMany
+    private Set<Account> accounts;
+
     public Role(Long id, String role_admin) {
-      this.id=id;
-      this.name=role_admin;
+      this.id = id;
+      this.name = role_admin;
     }
 
   public Role(Long id) {
