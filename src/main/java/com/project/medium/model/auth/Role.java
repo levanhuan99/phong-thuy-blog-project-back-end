@@ -1,7 +1,8 @@
-package com.project.medium.model;
+package com.project.medium.model.auth;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,9 +14,18 @@ import java.util.Set;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String name;
 
- //Mọi người hãy tạo dữ liệu cững cho bảng role này nhé:
+    public Role(Long id, String role_admin) {
+    }
+
+  public Role() {
+
+  }
+
+  //Mọi người hãy tạo dữ liệu cững cho bảng role này nhé:
  /* use medium;
     insert into role(id, name)
     values (1,'ROLE_ADMIN'),

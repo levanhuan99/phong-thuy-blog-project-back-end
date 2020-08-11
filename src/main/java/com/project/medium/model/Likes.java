@@ -15,6 +15,9 @@ import java.util.Set;
     private Long id;
     private boolean status;
 
-    @OneToMany
-    private Set<Blog> blogs;
+//    @ManyToOne
+//    private Blog blog;
+//
+//    @OneToMany
+//  private Set<Account> accounts;
 }

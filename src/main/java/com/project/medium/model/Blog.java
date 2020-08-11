@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -13,6 +14,8 @@ import java.util.Date;
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+     @Column(nullable = false)
      private String title;
 
      @Column(nullable = false)
@@ -22,13 +25,19 @@ import java.util.Date;
 
      @Column(nullable = false)
      private Date postTime;
+
      private String image;
+
 //     @ManyToOne
 //     private Account account;
+//
 //     @ManyToOne
 //    private Category category;
-
-
-
+//
+//     @OneToMany
+//    private Set<Comment> comments;
+//
+//     @OneToMany
+//    private Set<Likes> likes;
 
   }

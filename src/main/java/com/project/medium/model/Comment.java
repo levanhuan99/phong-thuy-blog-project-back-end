@@ -17,9 +17,9 @@ import java.util.Date;
     private Date commentTime;
     private String content;
 
-    @ManyToOne
-    private Account account;
-
-    @ManyToOne
-    private Blog blog;
+//    @ManyToOne
+//    private Account account;
+//
+//    @ManyToOne
+//    private Blog blog;
 }
