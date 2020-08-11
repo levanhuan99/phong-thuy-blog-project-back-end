@@ -17,9 +17,9 @@ import java.util.Set;
 
 
     private String firstName;
+
     private String lastName;
 
-    @Column(nullable = false,unique = true)
     private String nickName;
 
    @Column(nullable = false,unique = true)
@@ -34,14 +34,12 @@ import java.util.Set;
 
     private Date birthDay;
 
-   @Column(nullable = false)
     private boolean status; //Su dung status de admin co quyen blog tai khoan nay
 
 
     private String avatar;
 
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "account_role",joinColumns = {@JoinColumn(name = "account_id")},inverseJoinColumns = {@JoinColumn(name = "role_id")})
   private Set<Role> roles;
   //    @ManyToOne
 //    private Likes likes;

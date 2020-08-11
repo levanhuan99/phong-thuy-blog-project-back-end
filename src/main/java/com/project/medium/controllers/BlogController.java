@@ -67,7 +67,7 @@ public class BlogController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        currentBlog.get().setId(id);
+//        currentBlog.get().setId(id);
         currentBlog.get().setTitle(blog.getTitle());
         currentBlog.get().setContent(blog.getContent());
         currentBlog.get().setStatus(blog.isStatus());
