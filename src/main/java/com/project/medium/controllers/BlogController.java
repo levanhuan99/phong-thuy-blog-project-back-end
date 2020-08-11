@@ -31,11 +31,11 @@ public class BlogController {
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/blogs/{id}",
+    @RequestMapping(value = "api/blogs/{id}/search",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Blog> getBlogById(
-            @PathVariable("id") Integer id) {
+            @PathVariable("id") Long id) {
         Optional<Blog> blog = blogCrudService.findById(id);
 
         if (!blog.isPresent()) {
@@ -45,7 +45,7 @@ public class BlogController {
         return new ResponseEntity<>(blog.get(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/blogs",
+    @RequestMapping(value = "api/blogs/create",
             method = RequestMethod.POST)
     public ResponseEntity<Blog> createBlog( @RequestBody Blog blogs,
             UriComponentsBuilder builder) {
@@ -56,9 +56,9 @@ public class BlogController {
         return new ResponseEntity<>(blogs, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "api/blogs/{id}",
+    @RequestMapping(value = "api/blogs/{id}/edit",
             method = RequestMethod.PUT)
-    public ResponseEntity<Blog> updateBlog(@PathVariable("id") Integer id, @RequestBody Blog blog) {
+    public ResponseEntity<Blog> updateBlog(@PathVariable("id") Long id, @RequestBody Blog blog) {
         Optional<Blog> currentBlog = blogCrudService
                 .findById(id);
         if (!currentBlog.isPresent()) {
@@ -77,9 +77,9 @@ public class BlogController {
         return new ResponseEntity<>(currentBlog.get(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "api/blogs/{id}",
+    @RequestMapping(value = "api/blogs/{id}/delete",
             method = RequestMethod.DELETE)
-    public ResponseEntity<Blog> deleteBlog( @PathVariable("id") Integer id) {
+    public ResponseEntity<Blog> deleteBlog( @PathVariable("id") Long id) {
 
         Optional<Blog> blog = blogCrudService.findById(id);
 

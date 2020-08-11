@@ -1,7 +1,7 @@
 package com.project.medium.services.Impl;
 
 import com.project.medium.model.Blog;
-import com.project.medium.repositories.BlogRepository;
+import com.project.medium.repository.BlogRepository;
 import com.project.medium.services.BlogCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class BlogServiceImpl  implements BlogCrudService {
     }
 
     @Override
-    public Optional<Blog> findById(Integer id) {
+    public Optional<Blog> findById(Long id) {
         return blogRepository.findById(id);
     }
 

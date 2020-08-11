@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface BlogCrudService {
     List<Blog> findAll();
 
-    Optional<Blog> findById(Integer id);
+    Optional<Blog> findById(Long id);
 
     void delete(Blog blog);
 

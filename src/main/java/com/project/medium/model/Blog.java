@@ -28,6 +28,8 @@ import java.util.Set;
 
      private String image;
 
+    public Blog() {
+    }
 //     @ManyToOne
 //     private Account account;
 //

@@ -1,4 +1,4 @@
-package com.project.medium.service.role;
+package com.project.medium.services.role;
 
 import com.project.medium.model.auth.Role;
 

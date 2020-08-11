@@ -1,7 +1,7 @@
-package com.project.medium.controller;
+package com.project.medium.controllers;
 
 import com.project.medium.model.auth.Role;
-import com.project.medium.service.role.RoleService;
+import com.project.medium.services.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,10 @@
-package com.project.medium.controller;
+package com.project.medium.controllers;
 
 import com.project.medium.model.auth.Account;
 import com.project.medium.model.auth.JwtResponse;
-import com.project.medium.service.JwtService;
-import com.project.medium.service.account.AccountService;
+import com.project.medium.services.service.JwtService;
+import com.project.medium.services.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
