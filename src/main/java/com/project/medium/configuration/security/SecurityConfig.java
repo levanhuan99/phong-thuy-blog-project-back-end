@@ -87,9 +87,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
             Account admin = new Account();
             Set<Role> roleList = new HashSet<>();
             roleList.add(new Role(1L,"ROLE_ADMIN"));
+            roleList.add(new Role(2L,"ROLE_USER"));
             admin.setEmail("admin@gmail.com");
             admin.setNickName("admin");
-            admin.setPassword("admin");
+            admin.setPassword("admin@gmail.com");
             admin.setPhoneNumber("0972522048");
             admin.setRoles(roleList);
             accountService.save(admin);
@@ -106,7 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/","/login","/register").permitAll()
+                .antMatchers("/api/blogs/list","/login","/api/accounts/create").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));

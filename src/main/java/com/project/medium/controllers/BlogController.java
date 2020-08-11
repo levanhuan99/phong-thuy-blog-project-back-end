@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 public class BlogController {
     private BlogCrudService blogCrudService;
 
@@ -21,6 +22,7 @@ public class BlogController {
     public BlogController(BlogCrudService blogCrudService) {
         this.blogCrudService = blogCrudService;
     }
+
 
     @RequestMapping(value = "api/blogs/list", method = RequestMethod.GET)
     public ResponseEntity<List<Blog>> findAllBlog() {

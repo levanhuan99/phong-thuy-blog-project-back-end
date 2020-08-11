@@ -19,6 +19,8 @@ import java.util.Set;
     private String name;
 
     public Role(Long id, String role_admin) {
+      this.id = id;
+      this.name = role_admin;
     }
 
   public Role(Long id) {
