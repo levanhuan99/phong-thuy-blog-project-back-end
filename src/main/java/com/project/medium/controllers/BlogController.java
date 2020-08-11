@@ -10,10 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 public class BlogController {
     private BlogCrudService blogCrudService;
 
@@ -27,6 +29,9 @@ public class BlogController {
         List<Blog> blogs = blogCrudService.findAll();
         if (blogs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        if (blogs!=null){
+            Collections.reverse(blogs);
         }
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
@@ -65,13 +70,13 @@ public class BlogController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        currentBlog.get().setId(id);
+//        currentBlog.get().setId(id);
         currentBlog.get().setTitle(blog.getTitle());
         currentBlog.get().setContent(blog.getContent());
         currentBlog.get().setStatus(blog.isStatus());
         currentBlog.get().setPostTime(blog.getPostTime());
 
-//        currentBlog.get().setCategory(blog.getCategory());
+        currentBlog.get().setCategory(blog.getCategory());
 //        currentBlog.get().setAccount(blog.getAccount());
         blogCrudService.save(currentBlog.get());
         return new ResponseEntity<>(currentBlog.get(), HttpStatus.OK);

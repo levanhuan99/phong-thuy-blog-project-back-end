@@ -87,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
             Account admin = new Account();
             Set<Role> roleList = new HashSet<>();
             roleList.add(new Role(1L,"ROLE_ADMIN"));
+            roleList.add(new Role(2L,"ROLE_USER"));
             admin.setEmail("admin@gmail.com");
             admin.setNickName("admin");
             admin.setPassword("admin");
