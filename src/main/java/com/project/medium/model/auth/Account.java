@@ -34,26 +34,25 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-
     private Date birthDay;
 
     private boolean status; //Su dung status de admin co quyen blog tai khoan nay
-
 
     private String avatar;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-
-    @OneToMany(mappedBy = "account")
+    @OneToMany
     @JsonIgnore
     private Set<Blog> blogs;
-    //    @ManyToOne
+//
+//  @OneToMany(mappedBy = "account")
+//  @JsonIgnore
+//  private Set<Blog> blogs;
+  //    @ManyToOne
 //    private Likes likes;
 //
 //    @OneToMany
 //    private Set<Comment> comments;
-
-
 }
