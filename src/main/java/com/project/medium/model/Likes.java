@@ -14,10 +14,11 @@ import java.util.Set;
 public class Likes {
 
   @Id
-
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-
   private Long id;
+
+  private boolean likes;
+
 
 
   @ManyToOne(fetch = FetchType.LAZY)

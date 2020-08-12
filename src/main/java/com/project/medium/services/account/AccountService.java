@@ -62,6 +62,11 @@ public class AccountService implements IAccount{
     }
 
     @Override
+    public Optional<Account> getAccountById(Long id) {
+        return accountRepository.findById(id);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Account> accountOptional = accountRepository.findByEmail(username);
         if (!accountOptional.isPresent()){

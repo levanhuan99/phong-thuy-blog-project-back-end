@@ -16,6 +16,8 @@ import java.util.Set;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+     private int likeBlog;
+
      @Column(nullable = false)
      private String title;
 
@@ -37,6 +39,11 @@ import java.util.Set;
      @ManyToOne
     private Category category;
 
+    private int likeBlog() {
+        return likeBlog;
+    }
+}
+
 
 //
 //     @OneToMany
@@ -45,4 +52,3 @@ import java.util.Set;
 //     @OneToMany
 //    private Set<Likes> likes;
 
-  }

@@ -12,4 +12,6 @@ public interface IAccount extends UserDetailsService {
 
     Account save(Account account);
     void remove(Long id);
+
+    Optional<Account> getAccountById(Long id);
 }

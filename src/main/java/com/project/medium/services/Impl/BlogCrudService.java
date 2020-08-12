@@ -13,4 +13,10 @@ public interface BlogCrudService {
     void delete(Blog blog);
 
     void save(Blog blog);
+
+    void increaseLike(Blog blog);
+
+    void decreaseLike(Blog blog);
+
+//    Optional<Blog> getBlogById(Long id);
 }
