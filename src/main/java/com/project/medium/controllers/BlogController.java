@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@CrossOrigin("http://localhost:4200")
 @RequestMapping("api/blogs")
 public class BlogController {
     private BlogCrudService blogCrudService;

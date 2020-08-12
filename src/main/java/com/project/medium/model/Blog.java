@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,8 +26,8 @@ import java.util.Set;
 
      private boolean status = true;
 
-     @Column(nullable = false)
-     private Date postTime;
+//     @Column(nullable = false)
+     private Date postTime = Timestamp.valueOf(LocalDateTime.now());
 
      private String image;
 
@@ -33,7 +35,7 @@ import java.util.Set;
     }
      @ManyToOne
      private Account account;
-//
+
      @ManyToOne
     private Category category;
 
