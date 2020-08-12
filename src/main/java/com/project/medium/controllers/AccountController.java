@@ -20,7 +20,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("api/accounts")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class AccountController {
 
     @Autowired
