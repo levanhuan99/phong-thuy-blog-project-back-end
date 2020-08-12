@@ -3,6 +3,7 @@ package com.project.medium.controllers;
 import com.project.medium.model.Blog;
 import com.project.medium.repository.BlogRepository;
 import com.project.medium.services.BlogCrudService;
+import com.project.medium.services.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class BlogController {
     BlogRepository blogRepository;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     public BlogController(BlogCrudService blogCrudService) {
         this.blogCrudService = blogCrudService;
     }
@@ -44,7 +48,7 @@ public class BlogController {
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/get-blog/{id}",
+    @RequestMapping(value = "/{id}/get-blog",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Blog> getBlogById(
@@ -108,5 +112,6 @@ public class BlogController {
         List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
         return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
+
 }
 
