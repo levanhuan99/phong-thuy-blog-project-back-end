@@ -85,7 +85,7 @@ public class AccountController {
 
     @RequestMapping(value = "/{id}/delete",
             method = RequestMethod.DELETE)
-    public ResponseEntity<Blog> deleteBlog( @PathVariable("id") Long id) {
+    public ResponseEntity<Account> deleteBlog( @PathVariable("id") Long id) {
 
         Optional<Account> account = accountService.findById(id);
 
