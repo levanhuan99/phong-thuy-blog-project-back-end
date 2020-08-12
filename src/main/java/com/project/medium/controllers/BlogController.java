@@ -8,12 +8,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.annotation.security.RolesAllowed;
-import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +81,7 @@ public class BlogController {
         currentBlog.get().setStatus(blog.isStatus());
         currentBlog.get().setPostTime(blog.getPostTime());
 
-        currentBlog.get().setCategory(blog.getCategory());
+//        currentBlog.get().setCategory(blog.getCategory());
 //        currentBlog.get().setAccount(blog.getAccount());
         blogCrudService.save(currentBlog.get());
         return new ResponseEntity<>(currentBlog.get(), HttpStatus.OK);
