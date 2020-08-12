@@ -2,7 +2,7 @@ package com.project.medium.controllers;
 
 import com.project.medium.model.auth.Account;
 import com.project.medium.model.auth.JwtResponse;
-import com.project.medium.services.service.JwtService;
+import com.project.medium.services.JWT.JwtService;
 import com.project.medium.services.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

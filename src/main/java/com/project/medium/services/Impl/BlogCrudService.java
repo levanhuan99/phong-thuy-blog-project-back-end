@@ -1,4 +1,4 @@
-package com.project.medium.services;
+package com.project.medium.services.Impl;
 
 import com.project.medium.model.Blog;
 

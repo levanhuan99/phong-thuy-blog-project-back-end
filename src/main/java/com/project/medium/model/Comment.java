@@ -14,7 +14,9 @@ import java.util.Date;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Date commentTime;
+
     private String content;
 
 //    @ManyToOne

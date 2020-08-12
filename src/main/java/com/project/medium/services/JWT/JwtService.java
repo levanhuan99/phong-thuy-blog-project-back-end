@@ -1,4 +1,4 @@
-package com.project.medium.services.service;
+package com.project.medium.services.JWT;
 
 import com.project.medium.model.auth.AccountPrinciple;
 import io.jsonwebtoken.*;

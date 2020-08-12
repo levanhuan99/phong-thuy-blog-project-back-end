@@ -1,7 +1,7 @@
 package com.project.medium.configuration.filter;
 
 
-import com.project.medium.services.service.JwtService;
+import com.project.medium.services.JWT.JwtService;
 import com.project.medium.services.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
