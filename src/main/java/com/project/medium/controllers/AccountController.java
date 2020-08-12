@@ -1,5 +1,6 @@
 package com.project.medium.controllers;
 
+import com.project.medium.model.Blog;
 import com.project.medium.model.auth.Account;
 import com.project.medium.model.auth.Role;
 import com.project.medium.repository.AccountRepository;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -59,4 +61,38 @@ public class AccountController {
     }
 
 
+    @RequestMapping(value = "/{id}/edit",
+            method = RequestMethod.PUT)
+    public ResponseEntity<Account> updateBlog(@PathVariable("id") Long id, @RequestBody Account account) {
+        Account currentAccount = accountService.findById(id).orElse(null);
+        if (currentAccount == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        currentAccount.setNickName(account.getNickName());
+        currentAccount.setRoles(account.getRoles());
+        currentAccount.setStatus(account.isStatus());
+        currentAccount.setAvatar(account.getAvatar());
+        currentAccount.setPassword(account.getPassword());
+        currentAccount.setEmail(account.getEmail());
+        currentAccount.setFirstName(account.getFirstName());
+        currentAccount.setLastName(account.getLastName());
+        currentAccount.setPhoneNumber(account.getPhoneNumber());
+        currentAccount.setBirthDay(account.getBirthDay());
+        accountService.save(currentAccount);
+        return new ResponseEntity<>(currentAccount, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/delete",
+            method = RequestMethod.DELETE)
+    public ResponseEntity<Blog> deleteBlog( @PathVariable("id") Long id) {
+
+        Optional<Account> account = accountService.findById(id);
+
+        if (!account.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        accountService.remove(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

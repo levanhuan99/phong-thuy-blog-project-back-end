@@ -1,7 +1,10 @@
 package com.project.medium.model.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.medium.model.Blog;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,7 +13,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-  public class Account {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,13 +25,13 @@ import java.util.Set;
 
     private String nickName;
 
-   @Column(nullable = false,unique = true)
-   private String email;// Dung email de login
+    @Column(nullable = false, unique = true)
+    private String email;// Dung email de login
 
-   @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
-   @Column(nullable = false)
+    @Column(nullable = false)
     private String password;
 
 
@@ -39,15 +42,18 @@ import java.util.Set;
 
     private String avatar;
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  private Set<Role> roles;
-  //    @ManyToOne
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
+
+    @OneToMany(mappedBy = "account")
+    @JsonIgnore
+    private Set<Blog> blogs;
+    //    @ManyToOne
 //    private Likes likes;
 //
 //    @OneToMany
 //    private Set<Comment> comments;
-
-
 
 
 }

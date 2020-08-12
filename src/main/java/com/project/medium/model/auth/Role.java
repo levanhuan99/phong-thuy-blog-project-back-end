@@ -18,7 +18,7 @@ import java.util.Set;
     @Column(unique = true)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     private Set<Account> accounts;
 
     public Role(Long id, String role_admin) {
