@@ -1,5 +1,6 @@
 package com.project.medium.model;
 
+import com.project.medium.model.auth.Account;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ import java.util.Set;
      @Column(nullable = false)
      private String content;
 
-     private boolean status;
+     private boolean status = true;
 
      @Column(nullable = false)
      private Date postTime;
@@ -30,11 +31,13 @@ import java.util.Set;
 
     public Blog() {
     }
-//     @ManyToOne
-//     private Account account;
+     @ManyToOne
+     private Account account;
 //
-//     @ManyToOne
-//    private Category category;
+     @ManyToOne
+    private Category category;
+
+
 //
 //     @OneToMany
 //    private Set<Comment> comments;

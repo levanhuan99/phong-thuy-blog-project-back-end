@@ -1,7 +1,10 @@
 package com.project.medium.model.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.medium.model.Blog;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,6 +44,11 @@ import java.util.Set;
 
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<Role> roles;
+
+
+  @OneToMany(mappedBy = "account")
+  @JsonIgnore
+  private Set<Blog> blogs;
   //    @ManyToOne
 //    private Likes likes;
 //
