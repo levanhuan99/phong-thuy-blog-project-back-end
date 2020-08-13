@@ -70,10 +70,10 @@ public class AccountController {
         }
 
         currentAccount.setNickName(account.getNickName());
-        currentAccount.setRoles(account.getRoles());
-        currentAccount.setStatus(account.isStatus());
+//        currentAccount.setRoles(account.getRoles());
+//        currentAccount.setStatus(account.isStatus());
         currentAccount.setAvatar(account.getAvatar());
-        currentAccount.setPassword(account.getPassword());
+//        currentAccount.setPassword(account.getPassword());
         currentAccount.setEmail(account.getEmail());
         currentAccount.setFirstName(account.getFirstName());
         currentAccount.setLastName(account.getLastName());
@@ -94,5 +94,17 @@ public class AccountController {
         }
         accountService.remove(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+    //Thuy them code
+    @GetMapping("/{id}/details")
+    public ResponseEntity<Account> getAccountDetails(@PathVariable Long id) {
+        Account account = accountService.findById(id).orElse(null);
+        if (account == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(account,HttpStatus.OK);
+        }
+
     }
 }
