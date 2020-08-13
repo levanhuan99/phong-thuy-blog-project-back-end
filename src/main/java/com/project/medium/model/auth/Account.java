@@ -41,7 +41,6 @@ import java.util.Set;
 
 
     private String avatar;
-
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<Role> roles;
 
