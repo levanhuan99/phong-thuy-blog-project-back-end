@@ -22,7 +22,7 @@ import java.util.Set;
      @Column(nullable = false)
      private String title;
 
-     @Column(nullable = false)
+     @Column(nullable = false,columnDefinition = "TEXT")
      private String content;
 
      private boolean status = true;
@@ -35,7 +35,6 @@ import java.util.Set;
     public Blog() {
     }
      @ManyToOne
-     @JsonIgnore
      private Account account;
 
      @ManyToOne
