@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-public class Account {
+  public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,13 +25,13 @@ public class Account {
 
     private String nickName;
 
-    @Column(nullable = false, unique = true)
-    private String email;// Dung email de login
+   @Column(nullable = false,unique = true)
+   private String email;// Dung email de login
 
-    @Column(nullable = false, unique = true)
+   @Column(nullable = false,unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false)
+   @Column(nullable = false)
     private String password;
 
 
@@ -41,22 +41,20 @@ public class Account {
 
 
     private String avatar;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
-
-
-    @OneToMany(mappedBy = "account")
-    @JsonIgnore
-    private Set<Blog> blogs;
-    //    @ManyToOne
+  @ManyToMany(fetch = FetchType.EAGER)
+  private Set<Role> roles;
 
 
+  @OneToMany(mappedBy = "account")
+  @JsonIgnore
+  private Set<Blog> blogs;
   //    @ManyToOne
 //    private Likes likes;
 //
 //    @OneToMany
 //    private Set<Comment> comments;
+
+
 
 
 }
