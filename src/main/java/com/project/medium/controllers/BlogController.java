@@ -20,16 +20,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("api/blogs")
+@CrossOrigin("*")
 public class BlogController {
     private BlogCrudService blogCrudService;
 
     @Autowired
     BlogRepository blogRepository;
-
-    @Autowired
-    private CategoryService categoryService;
 
     @Autowired
     public BlogController(BlogCrudService blogCrudService) {
@@ -112,6 +109,5 @@ public class BlogController {
         List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
         return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
-
 }
 

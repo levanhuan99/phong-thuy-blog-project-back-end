@@ -20,7 +20,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Category>> getAllAccount(){
+    public ResponseEntity<Iterable<Category>> getAllCategory(){
         return new ResponseEntity<>(categoryService.findAll(), HttpStatus.OK);
     }
 }
