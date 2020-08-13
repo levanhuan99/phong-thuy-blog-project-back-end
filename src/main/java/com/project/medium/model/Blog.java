@@ -1,5 +1,6 @@
 package com.project.medium.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.medium.model.auth.Account;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,7 @@ import java.util.Set;
     public Blog() {
     }
      @ManyToOne
+     @JsonIgnore
      private Account account;
 
      @ManyToOne
