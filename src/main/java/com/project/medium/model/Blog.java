@@ -43,7 +43,7 @@ import java.util.Set;
      @OneToMany(fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-//     @OneToMany
-//    private Set<Likes> likes;
+     @OneToMany(fetch = FetchType.LAZY)
+    private Set<Likes> likes;
 
   }

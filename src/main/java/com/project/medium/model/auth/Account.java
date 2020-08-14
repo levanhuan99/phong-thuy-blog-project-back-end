@@ -3,6 +3,7 @@ package com.project.medium.model.auth;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.medium.model.Blog;
 import com.project.medium.model.Comment;
+import com.project.medium.model.Likes;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +30,7 @@ public class Account {
     @Column(nullable = false, unique = true)
     private String email;// Dung email de login
 
-//    @Column(nullable = false, unique = true)
+    //    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(nullable = false)
@@ -48,10 +49,10 @@ public class Account {
     @JsonIgnore
     private Set<Blog> blogs;
 
-    //
+
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-    //    @ManyToOne
-//    private Likes likes;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Likes> likes;
 }

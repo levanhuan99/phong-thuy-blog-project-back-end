@@ -20,7 +20,7 @@ import java.util.Date;
 
     @ManyToOne
     private Account account;
-//
+
     @ManyToOne
     private Blog blog;
 }
