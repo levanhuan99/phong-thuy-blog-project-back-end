@@ -2,6 +2,7 @@ package com.project.medium.model.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.medium.model.Blog;
+import com.project.medium.model.Comment;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-  public class Account {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,13 +26,13 @@ import java.util.Set;
 
     private String nickName;
 
-   @Column(nullable = false,unique = true)
-   private String email;// Dung email de login
+    @Column(nullable = false, unique = true)
+    private String email;// Dung email de login
 
-   @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
-   @Column(nullable = false)
+    @Column(nullable = false)
     private String password;
 
 
@@ -39,22 +40,18 @@ import java.util.Set;
 
     private boolean status; //Su dung status de admin co quyen blog tai khoan nay
 
-
     private String avatar;
-  @ManyToMany(fetch = FetchType.EAGER)
-  private Set<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
+    @OneToMany(mappedBy = "account")
+    @JsonIgnore
+    private Set<Blog> blogs;
 
-  @OneToMany(mappedBy = "account")
-  @JsonIgnore
-  private Set<Blog> blogs;
-  //    @ManyToOne
+    //
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Comment> comments;
+
+    //    @ManyToOne
 //    private Likes likes;
-//
-//    @OneToMany
-//    private Set<Comment> comments;
-
-
-
-
 }
