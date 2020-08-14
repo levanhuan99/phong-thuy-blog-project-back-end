@@ -40,11 +40,6 @@ import java.util.Set;
     private Category category;
 
 
-//
-//     @OneToMany
-//    private Set<Comment> comments;
-//
-//     @OneToMany
-//    private Set<Likes> likes;
 
+//
   }
