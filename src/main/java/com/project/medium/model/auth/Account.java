@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
@@ -29,7 +29,7 @@ public class Account {
     @Column(nullable = false, unique = true)
     private String email;// Dung email de login
 
-    @Column(nullable = false, unique = true)
+//    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(nullable = false)

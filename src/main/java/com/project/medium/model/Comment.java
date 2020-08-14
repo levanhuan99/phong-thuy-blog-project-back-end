@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
   public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date commentTime;
     private String content;
@@ -21,6 +21,6 @@ import java.util.Date;
     @ManyToOne
     private Account account;
 //
-//    @ManyToOne
-//    private Blog blog;
+    @ManyToOne
+    private Blog blog;
 }

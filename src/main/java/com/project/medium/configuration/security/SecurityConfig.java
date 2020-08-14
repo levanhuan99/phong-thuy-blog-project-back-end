@@ -83,18 +83,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
             roleService.save(roleCoach);
         }
 
-        if (accounts.isEmpty()){
-            Account admin = new Account();
-            Set<Role> roleList = new HashSet<>();
-            roleList.add(new Role(1L,"ROLE_ADMIN"));
-            roleList.add(new Role(2L,"ROLE_USER"));
-            admin.setEmail("admin@gmail.com");
-            admin.setNickName("admin");
-            admin.setPassword("admin@gmail.com");
-            admin.setPhoneNumber("0972522048");
-            admin.setRoles(roleList);
-            accountService.save(admin);
-        }
+//        if (accounts.isEmpty()){
+//            Account admin = new Account();
+//            Set<Role> roleList = new HashSet<>();
+//            roleList.add(new Role(1L,"ROLE_ADMIN"));
+//            roleList.add(new Role(2L,"ROLE_USER"));
+//            admin.setEmail("admin@gmail.com");
+//            admin.setNickName("admin");
+//            admin.setPassword("admin@gmail.com");
+//            admin.setPhoneNumber("0972522048");
+//            admin.setRoles(roleList);
+//            accountService.save(admin);
+//        }
     }
 
     @Autowired
@@ -124,7 +124,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .allowedMethods( "GET", "POST", "DELETE" )
                 .allowedHeaders( "*" )
                 .allowCredentials( true )
-                .exposedHeaders( "Authorization" )
-                .maxAge( 3600 );
+                .exposedHeaders( "Authorization" );
+//                .maxAge( 3600 );
     }
 }

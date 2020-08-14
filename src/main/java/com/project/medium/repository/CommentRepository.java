@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BlogRepository extends JpaRepository<Blog, Long> {
-    List<Blog> findAllByAccount_IdAndStatus(Long accountId, Boolean status);
+public interface CommentRepository extends JpaRepository<Comment,Long> {
 
-//    List<Blog> findAllByAccountIdAndStatusOrAccountIdAndStatus(boolean true, boolean false);
+    List<Comment> findAllByBlog(Blog blog);
+
 }

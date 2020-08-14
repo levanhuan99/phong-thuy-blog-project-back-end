@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
   public class Blog {
      @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
      @Column(nullable = false)
@@ -39,12 +39,10 @@ import java.util.Set;
 
      @ManyToOne
     private Category category;
-
-
 //
-//     @OneToMany
-//    private Set<Comment> comments;
-//
+     @OneToMany(fetch = FetchType.LAZY)
+    private Set<Comment> comments;
+
 //     @OneToMany
 //    private Set<Likes> likes;
 

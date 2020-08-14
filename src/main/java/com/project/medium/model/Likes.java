@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
   public class Likes {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private boolean status;
 
