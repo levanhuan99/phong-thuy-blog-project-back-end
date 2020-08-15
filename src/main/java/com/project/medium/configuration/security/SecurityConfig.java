@@ -93,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
             admin.setPassword("admin");
             admin.setPhoneNumber("0972522048");
             //thuy them code defaul avatar cho admin
-            admin.setAvatar("https://firebasestorage.googleapis.com/v0/b/uploadfile-demo-20e6f.appspot.com/o/avatar_account_default_1597306792462?alt=media&token=61bed8e9-9719-48ea-b7b5-5cdb0f03b6db");
+            admin.setAvatar("https://ramenparados.com/wp-content/uploads/2019/03/no-avatar-png-8.png");
 
             admin.setRoles(roleList);
             accountService.save(admin);
