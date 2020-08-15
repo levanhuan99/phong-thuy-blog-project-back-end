@@ -1,6 +1,6 @@
-package com.project.medium.repository.libraryImg;
+package com.project.medium.repository.anbumImg;
 
-import com.project.medium.model.libraryImg.AlbumTitle;
+import com.project.medium.model.albumImg.AlbumTitle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

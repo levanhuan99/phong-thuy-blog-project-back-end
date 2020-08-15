@@ -1,10 +1,11 @@
-package com.project.medium.model.libraryImg;
+package com.project.medium.model.albumImg;
 
 import com.project.medium.model.auth.Account;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -14,8 +15,9 @@ import javax.persistence.*;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Boolean stutus;
+    private Boolean status;
 
-    @ManyToOne
+  @ManyToOne
+  @JoinColumn(name = "account_id")
     private Account account;
 }
