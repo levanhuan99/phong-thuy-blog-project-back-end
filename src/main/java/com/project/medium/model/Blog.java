@@ -14,36 +14,40 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-  public class Blog {
-     @Id
+public class Blog {
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-     @Column(nullable = false)
-     private String title;
+    @Column(nullable = false)
+    private String title;
 
-     @Column(nullable = false,columnDefinition = "TEXT")
-     private String content;
+    //Thêm số lươt like cảu blog
+    private int amountOfLikes;
 
-     private boolean status = true;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content;
 
-//     @Column(nullable = false)
-     private Date postTime = Timestamp.valueOf(LocalDateTime.now());
+    private boolean status = true;
 
-     private String image;
+    //     @Column(nullable = false)
+    private Date postTime = Timestamp.valueOf(LocalDateTime.now());
+
+    private String image;
 
     public Blog() {
     }
-     @ManyToOne
-     private Account account;
 
-     @ManyToOne
+    @ManyToOne
+    private Account account;
+
+    @ManyToOne
     private Category category;
-//
-     @OneToMany(fetch = FetchType.LAZY)
+    //
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-     @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Likes> likes;
 
-  }
+}

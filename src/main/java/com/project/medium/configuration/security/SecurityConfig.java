@@ -25,9 +25,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -40,6 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private static final String BLOG_UNAUTHENTICATED_ROUTES = "/api/blogs/get-blog/?{[0-9]+}";
+
+    private static final String COMMENT_UNAUTHENTICATED_ROUTES = "/api/comments/?{[0-9]+}/blog";
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -69,6 +71,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @PostConstruct
     public void init(){
+
+
+
         List<Account> accounts = (List<Account>) accountService.findAll();
         List<Role> roles = (List<Role>) roleService.findAll();
         if (roles.isEmpty()){
@@ -104,10 +109,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        this.blogId=String.valueOf(this.blogController.getBlogId());
+
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/api/blogs/list","/login","/api/accounts/create").permitAll()
+                //thêm đường dẫn api/blogdedtail là permit all
+                .antMatchers("/api/blogs/list","/login","/api/accounts/create",this.BLOG_UNAUTHENTICATED_ROUTES,this.COMMENT_UNAUTHENTICATED_ROUTES).permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));

@@ -3,6 +3,7 @@ package com.project.medium.controllers;
 import com.project.medium.model.Blog;
 import com.project.medium.model.Comment;
 import com.project.medium.model.Likes;
+import com.project.medium.model.auth.Account;
 import com.project.medium.repository.BlogRepository;
 import com.project.medium.services.like.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,18 @@ public class LikeController {
 
     @PostMapping("/add")
     public ResponseEntity<Likes> createComment(@RequestBody Likes likes) {
-        this.likeService.save(likes);
+        Likes likes1= this.likeService.getLikeByAccountAndBlog(likes.getAccount(),likes.getBlog());
+        boolean likeStatus=this.likeService.getLikeStatus(likes1);
+        if (likeStatus){
+            likes.getBlog().setAmountOfLikes(likes.getBlog().getAmountOfLikes()-1);
+            this.likeService.save(likes);
+            likes.setStatus(false);
+        }
+        else {
+            likes.getBlog().setAmountOfLikes(likes.getBlog().getAmountOfLikes()+1);
+            this.likeService.save(likes);
+            likes.setStatus(true);
+        }
         return new ResponseEntity<>(likes,HttpStatus.OK);
     }
 

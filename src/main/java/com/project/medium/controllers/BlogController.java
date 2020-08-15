@@ -28,6 +28,8 @@ import java.util.Optional;
 public class BlogController {
     private BlogCrudService blogCrudService;
 
+    private int blogId = 0;
+
     @Autowired
     BlogRepository blogRepository;
 
@@ -48,7 +50,7 @@ public class BlogController {
         if (blogs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        if (blogs!=null){
+        if (blogs != null) {
             Collections.reverse(blogs);
         }
         return new ResponseEntity<>(blogs, HttpStatus.OK);
@@ -59,8 +61,13 @@ public class BlogController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Blog> getBlogById(
             @PathVariable("id") Long id) {
-        Optional<Blog> blog = blogCrudService.findById(id);
 
+        //lấy blog id để truyền vào phần security
+        Long blogid=new Long(id);
+        this.blogId=blogid.intValue();
+
+
+        Optional<Blog> blog = blogCrudService.findById(id);
         if (!blog.isPresent()) {
             return new ResponseEntity<>(blog.get(),
                     HttpStatus.NO_CONTENT);
@@ -71,7 +78,7 @@ public class BlogController {
     @RequestMapping(value = "/create",
             method = RequestMethod.POST)
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blogs,
-            UriComponentsBuilder builder) {
+                                           UriComponentsBuilder builder) {
         blogCrudService.save(blogs);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/{id}")
@@ -102,11 +109,11 @@ public class BlogController {
 
     @RequestMapping(value = "/{id}/delete",
             method = RequestMethod.DELETE)
-    public ResponseEntity<Blog> deleteBlog( @PathVariable("id") Long id) {
+    public ResponseEntity<Blog> deleteBlog(@PathVariable("id") Long id) {
 
         Optional<Blog> blog = blogCrudService.findById(id);
 
-        if (!blog.isPresent()){
+        if (!blog.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         blogCrudService.delete(blog.get());
@@ -114,9 +121,9 @@ public class BlogController {
     }
 
     @GetMapping("/{accountId}")
-    public ResponseEntity<List<Blog>> getBlogByAccountId(@PathVariable Long accountId){
+    public ResponseEntity<List<Blog>> getBlogByAccountId(@PathVariable Long accountId) {
         List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
-        return new ResponseEntity<>(blogList,HttpStatus.OK);
+        return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
 
 
@@ -125,5 +132,9 @@ public class BlogController {
 //        List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
 //        return new ResponseEntity<>(blogList,HttpStatus.OK);
 //    }
+
+    public int getBlogId(){
+        return  this.blogId;
+    }
 }
 
