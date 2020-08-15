@@ -71,9 +71,9 @@ public class AccountController {
 
         currentAccount.setNickName(account.getNickName());
 //        currentAccount.setRoles(account.getRoles());
-//        currentAccount.setStatus(account.isStatus());
+        currentAccount.setStatus(account.isStatus());
         currentAccount.setAvatar(account.getAvatar());
-//        currentAccount.setPassword(account.getPassword());
+        currentAccount.setPassword(account.getPassword());
         currentAccount.setEmail(account.getEmail());
         currentAccount.setFirstName(account.getFirstName());
         currentAccount.setLastName(account.getLastName());

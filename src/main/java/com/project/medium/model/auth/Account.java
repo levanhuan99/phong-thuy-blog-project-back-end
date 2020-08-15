@@ -39,7 +39,7 @@ import java.util.Set;
 
     private boolean status; //Su dung status de admin co quyen blog tai khoan nay
 
-
+    @Column(columnDefinition = "TEXT")
     private String avatar;
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<Role> roles;

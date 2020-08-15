@@ -62,7 +62,7 @@ public class BlogController {
     @RequestMapping(value = "/create",
             method = RequestMethod.POST)
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blogs,
-            UriComponentsBuilder builder) {
+                                           UriComponentsBuilder builder) {
         blogCrudService.save(blogs);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/{id}")
@@ -104,10 +104,15 @@ public class BlogController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{accountId}")
+    @GetMapping("/{accountId}/list")
     public ResponseEntity<List<Blog>> getBlogByAccountId(@PathVariable Long accountId){
         List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
         return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
-}
 
+    @GetMapping("/{accountId}/listAll")
+    public ResponseEntity<List<Blog>> getAllByAccountId(@PathVariable Long accountId){
+        List<Blog> blogList = blogRepository.findAllByAccount_Id(accountId);
+        return new ResponseEntity<>(blogList,HttpStatus.OK);
+    }
+}
