@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Likes,Long> {
     List<Likes> findAllByBlog(Blog blog);
 
-    Likes findByAccountAndBlog(Account account,Blog blog);
+    Optional<Likes> findByAccountAndBlog(Account account, Blog blog);
 }

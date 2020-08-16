@@ -5,6 +5,8 @@ import com.project.medium.model.Comment;
 import com.project.medium.model.Likes;
 import com.project.medium.model.auth.Account;
 import com.project.medium.repository.BlogRepository;
+import com.project.medium.services.Impl.BlogServiceImpl;
+import com.project.medium.services.account.AccountService;
 import com.project.medium.services.like.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,34 +27,51 @@ public class LikeController {
     @Autowired
     private BlogRepository blogRepository;
 
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private BlogServiceImpl blogService;
+
 
     @PostMapping("/add")
-    public ResponseEntity<Likes> createComment(@RequestBody Likes likes) {
-        Likes likes1= this.likeService.getLikeByAccountAndBlog(likes.getAccount(),likes.getBlog());
-        boolean likeStatus=this.likeService.getLikeStatus(likes1);
-        if (likeStatus){
-            likes.getBlog().setAmountOfLikes(likes.getBlog().getAmountOfLikes()-1);
-            this.likeService.save(likes);
-            likes.setStatus(false);
+    public ResponseEntity<Likes> saveLike(@RequestBody Likes likes) {
+        Optional<Account> account = this.accountService.findById(likes.getAccount().getId());
+        Optional<Blog> blog = this.blogRepository.findById(likes.getBlog().getId());
+        Optional<Likes> likes1 = this.likeService.getLikeByAccountAndBlog(account.get(), blog.get());
+        if (!likes1.isPresent()) {
+            Likes likes2 = new Likes();
+            likes2.setAccount(likes.getAccount());
+            likes2.setBlog(likes.getBlog());
+            likes2.setStatus(true);
+            likeService.save(likes2);
+            likes2.getBlog().setAmountOfLikes(likes2.getBlog().getAmountOfLikes() + 1);
+            return new ResponseEntity<Likes>(likes2, HttpStatus.OK);
+        } else {
+            if (account.isPresent() && blog.isPresent()) {
+                if (likes1.get().isStatus()) {
+                    blogService.decreaseLike(blog.get());
+                    likes1.get().setStatus(false);
+                    likeService.save(likes1.get());
+                } else {
+                    blogService.increaseLike(blog.get());
+                    likes1.get().setStatus(true);
+                    likeService.save(likes1.get());
+                }
+                return new ResponseEntity<Likes>(likes1.get(), HttpStatus.OK);
+            }
         }
-        else {
-            likes.getBlog().setAmountOfLikes(likes.getBlog().getAmountOfLikes()+1);
-            this.likeService.save(likes);
-            likes.setStatus(true);
-        }
-        return new ResponseEntity<>(likes,HttpStatus.OK);
+        return null;
     }
 
     @GetMapping("/{id}/blog")
-    public ResponseEntity<List<Likes>> getAllLikes(@PathVariable Long id){
-        Optional<Blog> blog=this.blogRepository.findById(id);
-        if (blog.isPresent()){
+    public ResponseEntity<List<Likes>> getAllLikes(@PathVariable Long id) {
+        Optional<Blog> blog = this.blogRepository.findById(id);
+        if (blog.isPresent()) {
             List<Likes> likesList = this.likeService.getAllLikeByBlog(blog.get());
             return new ResponseEntity<>(likesList, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
-
-
 }

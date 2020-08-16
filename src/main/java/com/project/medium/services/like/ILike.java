@@ -5,6 +5,7 @@ import com.project.medium.model.Likes;
 import com.project.medium.model.auth.Account;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ILike {
 
@@ -12,5 +13,5 @@ public interface ILike {
 
     Likes save(Likes likes);
     
-    Likes getLikeByAccountAndBlog(Account account,Blog blog);
+    Optional<Likes> getLikeByAccountAndBlog(Account account, Blog blog);
 }

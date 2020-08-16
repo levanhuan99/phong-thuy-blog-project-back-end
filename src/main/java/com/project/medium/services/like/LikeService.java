@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LikeService implements ILike {
@@ -26,7 +27,7 @@ public class LikeService implements ILike {
     }
 
     @Override
-    public Likes getLikeByAccountAndBlog(Account account, Blog blog) {
+    public Optional<Likes> getLikeByAccountAndBlog(Account account, Blog blog) {
         return this.likeRepository.findByAccountAndBlog(account, blog);
     }
 
