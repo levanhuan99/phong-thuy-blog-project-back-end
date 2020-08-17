@@ -25,9 +25,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -41,6 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private static final String BLOG_UNAUTHENTICATED_ROUTES = "/api/blogs/get-blog/?{[0-9]+}";
+
+    private static final String COMMENT_UNAUTHENTICATED_ROUTES = "/api/comments/?{[0-9]+}/blog";
+
+    private static final String LIKE_UNAUTHENTICATED_ROUTES = "api/likes/?{[0-9]+}/blog";
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
@@ -51,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+
     @Bean
     public RestAuthenticationEntryPoint restServicesEntryPoint() {
         return new RestAuthenticationEntryPoint();
@@ -68,10 +73,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
+
+
         List<Account> accounts = (List<Account>) accountService.findAll();
         List<Role> roles = (List<Role>) roleService.findAll();
-        if (roles.isEmpty()){
+        if (roles.isEmpty()) {
             Role roleAdmin = new Role();
             roleAdmin.setId(1L);
             roleAdmin.setName("ROLE_ADMIN");
@@ -83,18 +90,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
             roleService.save(roleCoach);
         }
 
-        if (accounts.isEmpty()){
-            Account admin = new Account();
-            Set<Role> roleList = new HashSet<>();
-            roleList.add(new Role(1L,"ROLE_ADMIN"));
-            roleList.add(new Role(2L,"ROLE_USER"));
-            admin.setEmail("admin@gmail.com");
-            admin.setNickName("admin");
-            admin.setPassword("admin");
-            admin.setPhoneNumber("0972522048");
-            admin.setRoles(roleList);
-            accountService.save(admin);
-        }
+//        if (accounts.isEmpty()){
+//            Account admin = new Account();
+//            Set<Role> roleList = new HashSet<>();
+//            roleList.add(new Role(1L,"ROLE_ADMIN"));
+//            roleList.add(new Role(2L,"ROLE_USER"));
+//            admin.setEmail("admin@gmail.com");
+//            admin.setNickName("admin");
+//            admin.setPassword("admin@gmail.com");
+//            admin.setPhoneNumber("0972522048");
+//            admin.setRoles(roleList);
+//            accountService.save(admin);
+//        }
     }
 
     @Autowired
@@ -104,10 +111,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        this.blogId=String.valueOf(this.blogController.getBlogId());
+
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/api/blogs/list","/login","/api/accounts/create").permitAll()
+                //thêm đường dẫn api/blogdedtail là permit all
+                .antMatchers("/api/blogs/list", "/login", "/api/accounts/create",this.LIKE_UNAUTHENTICATED_ROUTES , this.BLOG_UNAUTHENTICATED_ROUTES, this.COMMENT_UNAUTHENTICATED_ROUTES).permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
@@ -117,14 +127,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
     }
+
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry.addMapping( "/**" )
-                .allowedOrigins( "http://localhost:4200" )
-                .allowedMethods( "GET", "POST", "DELETE" )
-                .allowedHeaders( "*" )
-                .allowCredentials( true )
-                .exposedHeaders( "Authorization" )
-                .maxAge( 3600 );
+        corsRegistry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .exposedHeaders("Authorization");
+//                .maxAge( 3600 );
     }
 }

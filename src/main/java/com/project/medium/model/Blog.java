@@ -21,7 +21,10 @@ import java.util.Set;
      @Column(nullable = false)
      private String title;
 
-     @Column(nullable = false)
+    //Thêm số lươt like của blog
+    private int amountOfLikes;
+
+     @Column(columnDefinition = "TEXT")
      private String content;
 
      private boolean status = true;
@@ -33,18 +36,17 @@ import java.util.Set;
 
     public Blog() {
     }
-     @ManyToOne
-     private Account account;
 
-     @ManyToOne
+    @ManyToOne
+    private Account account;
+
+    @ManyToOne
     private Category category;
+    //
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Comment> comments;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Likes> likes;
 
-//
-//     @OneToMany
-//    private Set<Comment> comments;
-//
-//     @OneToMany
-//    private Set<Likes> likes;
-
-  }
+}

@@ -2,6 +2,8 @@ package com.project.medium.model.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.medium.model.Blog;
+import com.project.medium.model.Comment;
+import com.project.medium.model.Likes;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,7 +41,7 @@ import java.util.Set;
 
     private boolean status; //Su dung status de admin co quyen blog tai khoan nay
 
-
+    @Column(columnDefinition = "TEXT")
     private String avatar;
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<Role> roles;
@@ -55,6 +57,9 @@ import java.util.Set;
 //    private Set<Comment> comments;
 
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Comment> comments;
 
-
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Likes> likes;
 }

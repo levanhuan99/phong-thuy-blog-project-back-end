@@ -20,13 +20,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/blogs")
 @CrossOrigin("*")
+@RequestMapping("api/blogs")
 public class BlogController {
     private BlogCrudService blogCrudService;
 
     @Autowired
     BlogRepository blogRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     public BlogController(BlogCrudService blogCrudService) {
@@ -35,7 +38,7 @@ public class BlogController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity<List<Blog>> findAllBlog() {
-        List<Blog> blogs = blogCrudService.findAll();
+        List<Blog> blogs = blogRepository.findAllByStatus(true);
         if (blogs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -44,6 +47,18 @@ public class BlogController {
         }
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
+
+//    @RequestMapping(value = "/list-all-me",method = RequestMethod.GET)
+//    public ResponseEntity<List<Blog>> findAllBlogOfMe(){
+//        List<Blog> blogList = blogCrudService.findAll();
+//        if (blogList.isEmpty()){
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        if (blogList != null){
+//            Collections.reverse(blogList);
+//        }
+//        return new ResponseEntity<>(blogList,HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/get-blog/{id}",
             method = RequestMethod.GET,
@@ -62,7 +77,7 @@ public class BlogController {
     @RequestMapping(value = "/create",
             method = RequestMethod.POST)
     public ResponseEntity<Blog> createBlog(@RequestBody Blog blogs,
-            UriComponentsBuilder builder) {
+                                           UriComponentsBuilder builder) {
         blogCrudService.save(blogs);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/{id}")
@@ -104,9 +119,15 @@ public class BlogController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{accountId}")
+    @GetMapping("/{accountId}/list")
     public ResponseEntity<List<Blog>> getBlogByAccountId(@PathVariable Long accountId){
         List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
+        return new ResponseEntity<>(blogList,HttpStatus.OK);
+    }
+
+    @GetMapping("/{accountId}/listAll")
+    public ResponseEntity<List<Blog>> getAllByAccountId(@PathVariable Long accountId){
+        List<Blog> blogList = blogRepository.findAllByAccount_Id(accountId);
         return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
 }
