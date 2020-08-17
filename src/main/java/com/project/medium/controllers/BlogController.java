@@ -20,13 +20,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/blogs")
 @CrossOrigin("*")
+@RequestMapping("api/blogs")
 public class BlogController {
     private BlogCrudService blogCrudService;
 
     @Autowired
     BlogRepository blogRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     public BlogController(BlogCrudService blogCrudService) {
@@ -128,3 +131,4 @@ public class BlogController {
         return new ResponseEntity<>(blogList,HttpStatus.OK);
     }
 }
+

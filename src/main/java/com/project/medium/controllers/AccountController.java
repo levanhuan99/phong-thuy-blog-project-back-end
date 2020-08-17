@@ -1,6 +1,5 @@
 package com.project.medium.controllers;
 
-import com.project.medium.model.Blog;
 import com.project.medium.model.auth.Account;
 import com.project.medium.model.auth.Role;
 import com.project.medium.repository.AccountRepository;
