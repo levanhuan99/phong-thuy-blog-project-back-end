@@ -35,7 +35,7 @@ public class BlogController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity<List<Blog>> findAllBlog() {
-        List<Blog> blogs = blogCrudService.findAll();
+        List<Blog> blogs = blogRepository.findAllByStatus(true);
         if (blogs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -44,6 +44,18 @@ public class BlogController {
         }
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
+
+//    @RequestMapping(value = "/list-all-me",method = RequestMethod.GET)
+//    public ResponseEntity<List<Blog>> findAllBlogOfMe(){
+//        List<Blog> blogList = blogCrudService.findAll();
+//        if (blogList.isEmpty()){
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        if (blogList != null){
+//            Collections.reverse(blogList);
+//        }
+//        return new ResponseEntity<>(blogList,HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/get-blog/{id}",
             method = RequestMethod.GET,

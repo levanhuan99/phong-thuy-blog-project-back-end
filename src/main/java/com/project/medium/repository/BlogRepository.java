@@ -13,6 +13,7 @@ import java.util.List;
 public interface BlogRepository extends JpaRepository<Blog, Long> {
     List<Blog> findAllByAccount_IdAndStatus(Long accountId, Boolean status);
     List<Blog> findAllByAccount_Id(Long id);
+    List<Blog> findAllByStatus(Boolean status);
 
 //    List<Blog> findAllByAccountIdAndStatusOrAccountIdAndStatus(boolean true, boolean false);
 }
