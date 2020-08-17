@@ -8,7 +8,7 @@ public class Sendmail {
 
     private String MY_PASSWORD = "Anhphong97";
 
-//    private String href ="";
+    private String href ="";
 
 
     private String email = "";
@@ -38,13 +38,13 @@ public class Sendmail {
         this.email = email;
     }
 
-//    public String getHref() {
-//        return href;
-//    }
-//
-//    public void setHref(String href) {
-//        this.href = href;
-//    }
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
 
 
 }
