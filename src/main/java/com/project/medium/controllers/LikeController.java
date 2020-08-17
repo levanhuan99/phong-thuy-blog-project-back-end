@@ -41,35 +41,31 @@ public class LikeController {
         Optional<Likes> likes1 = this.likeService.getLikeByAccountAndBlog(account.get(), blog.get());
         if (!likes1.isPresent()) {
             Likes likes2 = new Likes();
-            likes2.setAccount(likes.getAccount());
-            likes2.setBlog(likes.getBlog());
+            likes2.setAccount(account.get());
+            likes2.setBlog(blog.get());
             likes2.setStatus(true);
             likeService.save(likes2);
-            likes2.getBlog().setAmountOfLikes(likes2.getBlog().getAmountOfLikes() + 1);
+            blogService.increaseLike(blog.get());
             return new ResponseEntity<Likes>(likes2, HttpStatus.OK);
         } else {
-            if (account.isPresent() && blog.isPresent()) {
-                if (likes1.get().isStatus()) {
-                    blogService.decreaseLike(blog.get());
-                    likes1.get().setStatus(false);
-                    likeService.save(likes1.get());
-                } else {
-                    blogService.increaseLike(blog.get());
-                    likes1.get().setStatus(true);
-                    likeService.save(likes1.get());
-                }
-                return new ResponseEntity<Likes>(likes1.get(), HttpStatus.OK);
+            if (likes1.get().isStatus()) {
+                blogService.decreaseLike(blog.get());
+                likes1.get().setStatus(false);
+                likeService.save(likes1.get());
+            } else {
+                blogService.increaseLike(blog.get());
+                likes1.get().setStatus(true);
+                likeService.save(likes1.get());
             }
+            return new ResponseEntity<Likes>(likes1.get(), HttpStatus.OK);
         }
-        return null;
     }
 
     @GetMapping("/{id}/blog")
-    public ResponseEntity<List<Likes>> getAllLikes(@PathVariable Long id) {
+    public ResponseEntity<Blog> getAllLikeByBlog(@PathVariable Long id) {
         Optional<Blog> blog = this.blogRepository.findById(id);
         if (blog.isPresent()) {
-            List<Likes> likesList = this.likeService.getAllLikeByBlog(blog.get());
-            return new ResponseEntity<>(likesList, HttpStatus.OK);
+            return new ResponseEntity<Blog>(blog.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

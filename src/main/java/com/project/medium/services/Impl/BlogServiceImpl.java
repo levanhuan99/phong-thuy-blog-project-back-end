@@ -41,14 +41,14 @@ public class BlogServiceImpl  implements BlogCrudService {
     @Override
     public Blog increaseLike(Blog blog) {
         blog.setAmountOfLikes(blog.getAmountOfLikes()+1);
-        blogCrudService.save(blog);
+        blogRepository.save(blog);
         return blog;
     }
 
     @Override
     public Blog decreaseLike(Blog blog) {
-        blog.setAmountOfLikes(blog.getAmountOfLikes()+1);
-        blogCrudService.save(blog);
+        blog.setAmountOfLikes(blog.getAmountOfLikes()-1);
+        blogRepository.save(blog);
         return blog;
     }
 

@@ -22,7 +22,7 @@ public class Blog {
     @Column(nullable = false)
     private String title;
 
-    //Thêm số lươt like cảu blog
+    //Thêm số lươt like của blog
     private int amountOfLikes;
 
     @Column(nullable = false, columnDefinition = "TEXT")

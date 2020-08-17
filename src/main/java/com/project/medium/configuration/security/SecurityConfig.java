@@ -43,6 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     private static final String COMMENT_UNAUTHENTICATED_ROUTES = "/api/comments/?{[0-9]+}/blog";
 
+    private static final String LIKE_UNAUTHENTICATED_ROUTES = "api/likes/?{[0-9]+}/blog";
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
@@ -53,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+
     @Bean
     public RestAuthenticationEntryPoint restServicesEntryPoint() {
         return new RestAuthenticationEntryPoint();
@@ -70,13 +73,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     }
 
     @PostConstruct
-    public void init(){
-
+    public void init() {
 
 
         List<Account> accounts = (List<Account>) accountService.findAll();
         List<Role> roles = (List<Role>) roleService.findAll();
-        if (roles.isEmpty()){
+        if (roles.isEmpty()) {
             Role roleAdmin = new Role();
             roleAdmin.setId(1L);
             roleAdmin.setName("ROLE_ADMIN");
@@ -115,7 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
                 //thêm đường dẫn api/blogdedtail là permit all
-                .antMatchers("/api/blogs/list","/login","/api/accounts/create",this.BLOG_UNAUTHENTICATED_ROUTES,this.COMMENT_UNAUTHENTICATED_ROUTES).permitAll()
+                .antMatchers("/api/blogs/list", "/login", "/api/accounts/create",this.LIKE_UNAUTHENTICATED_ROUTES , this.BLOG_UNAUTHENTICATED_ROUTES, this.COMMENT_UNAUTHENTICATED_ROUTES).permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
@@ -125,14 +127,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.cors();
     }
+
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry.addMapping( "/**" )
-                .allowedOrigins( "http://localhost:4200" )
-                .allowedMethods( "GET", "POST", "DELETE" )
-                .allowedHeaders( "*" )
-                .allowCredentials( true )
-                .exposedHeaders( "Authorization" );
+        corsRegistry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .exposedHeaders("Authorization");
 //                .maxAge( 3600 );
     }
 }

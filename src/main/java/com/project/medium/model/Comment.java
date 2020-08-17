@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.hibernate.exception.DataException;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,12 +17,12 @@ import java.util.Date;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date commentTime;
+    private Date commentTime= Timestamp.valueOf(LocalDateTime.now());
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Blog blog;
 }
