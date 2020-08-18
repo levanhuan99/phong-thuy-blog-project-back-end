@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,9 @@ import java.util.Set;
     private String name;
     private Boolean status;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name = "account_id")
     private Account account;
+  @OneToMany(mappedBy = "album_title")
+  private List<Image> images;
 }
