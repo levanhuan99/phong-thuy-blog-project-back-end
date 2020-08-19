@@ -1,9 +1,11 @@
 package com.project.medium.controllers;
 
 import com.project.medium.model.Blog;
+import com.project.medium.model.BlogResponse;
 import com.project.medium.repository.BlogRepository;
 import com.project.medium.services.BlogCrudService;
 import com.project.medium.services.category.CategoryService;
+import com.project.medium.services.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.security.RolesAllowed;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -32,12 +35,15 @@ public class BlogController {
     private CategoryService categoryService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     public BlogController(BlogCrudService blogCrudService) {
         this.blogCrudService = blogCrudService;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseEntity<List<Blog>> findAllBlog() {
+    public ResponseEntity<List<BlogResponse>> findAllBlog() {
         List<Blog> blogs = blogRepository.findAllByStatus(true);
         if (blogs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -45,7 +51,20 @@ public class BlogController {
         if (blogs!=null){
             Collections.reverse(blogs);
         }
-        return new ResponseEntity<>(blogs, HttpStatus.OK);
+        List<BlogResponse> responses = new ArrayList<>();
+        for (Blog blog : blogs) {
+            BlogResponse response = new BlogResponse();
+            response.setTitle(blog.getTitle());
+            response.setId(blog.getId());
+            response.setLikes(blog.getAmountOfLikes());
+            response.setNameCategory(blog.getCategory().getName());
+            response.setAccountId(blog.getAccount().getId());
+            response.setPostTime(blog.getPostTime());
+            response.setAvatarUrl(blog.getAccount().getAvatar());
+            response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
+            responses.add(response);
+        }
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "/list-all-me",method = RequestMethod.GET)
@@ -120,15 +139,60 @@ public class BlogController {
     }
 
     @GetMapping("/{accountId}/list")
-    public ResponseEntity<List<Blog>> getBlogByAccountId(@PathVariable Long accountId){
+    public ResponseEntity<List<BlogResponse>> getBlogByAccountId(@PathVariable Long accountId){
         List<Blog> blogList = blogRepository.findAllByAccount_IdAndStatus(accountId, true);
-        return new ResponseEntity<>(blogList,HttpStatus.OK);
+        List<BlogResponse> responses = new ArrayList<>();
+        for (Blog blog : blogList) {
+            BlogResponse response = new BlogResponse();
+            response.setTitle(blog.getTitle());
+            response.setId(blog.getId());
+            response.setLikes(blog.getAmountOfLikes());
+            response.setNameCategory(blog.getCategory().getName());
+            response.setAccountId(blog.getAccount().getId());
+            response.setPostTime(blog.getPostTime());
+            response.setAvatarUrl(blog.getAccount().getAvatar());
+            response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
+            responses.add(response);
+        }
+        return new ResponseEntity<>(responses,HttpStatus.OK);
     }
 
     @GetMapping("/{accountId}/listAll")
-    public ResponseEntity<List<Blog>> getAllByAccountId(@PathVariable Long accountId){
+    public ResponseEntity<List<BlogResponse>> getAllByAccountId(@PathVariable Long accountId){
         List<Blog> blogList = blogRepository.findAllByAccount_Id(accountId);
-        return new ResponseEntity<>(blogList,HttpStatus.OK);
+        List<BlogResponse> responses = new ArrayList<>();
+        for (Blog blog : blogList) {
+            BlogResponse response = new BlogResponse();
+            response.setTitle(blog.getTitle());
+            response.setId(blog.getId());
+            response.setLikes(blog.getAmountOfLikes());
+            response.setNameCategory(blog.getCategory().getName());
+            response.setAccountId(blog.getAccount().getId());
+            response.setPostTime(blog.getPostTime());
+            response.setAvatarUrl(blog.getAccount().getAvatar());
+            response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
+            responses.add(response);
+        }
+        return new ResponseEntity<>(responses,HttpStatus.OK);
+    }
+
+    @GetMapping("/{categoryId}/list-category")
+    public ResponseEntity<List<BlogResponse>> getAllBlogByCategoryId(@PathVariable Long categoryId){
+        List<Blog> blogList = blogCrudService.findAllByCategory_IdAndStatus(categoryId,true);
+        List<BlogResponse> responses = new ArrayList<>();
+        for (Blog blog : blogList) {
+            BlogResponse response = new BlogResponse();
+            response.setTitle(blog.getTitle());
+            response.setId(blog.getId());
+            response.setLikes(blog.getAmountOfLikes());
+            response.setNameCategory(blog.getCategory().getName());
+            response.setAccountId(blog.getAccount().getId());
+            response.setPostTime(blog.getPostTime());
+            response.setAvatarUrl(blog.getAccount().getAvatar());
+            response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
+            responses.add(response);
+        }
+        return new ResponseEntity<>(responses,HttpStatus.OK);
     }
 }
 

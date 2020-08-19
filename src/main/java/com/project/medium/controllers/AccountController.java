@@ -34,6 +34,11 @@ public class AccountController {
     @PostMapping("/create")
     public Boolean create(@Valid @RequestBody Account account) throws ValidationException {
         Set<Role> roles = new HashSet<Role>();
+
+        //Thuy tem avatar default
+
+        account.setAvatar("https://ramenparados.com/wp-content/uploads/2019/03/no-avatar-png-8.png");
+
         String email = account.getEmail();
         if (accountRepository.existsAccountByEmail(email)) {
             throw new ValidationException("Email already existed");

@@ -1,7 +1,6 @@
 package com.project.medium.controllers;
 
 import com.project.medium.model.Category;
-import com.project.medium.model.auth.Account;
 import com.project.medium.services.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

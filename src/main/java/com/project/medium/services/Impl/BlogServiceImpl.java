@@ -52,4 +52,9 @@ public class BlogServiceImpl  implements BlogCrudService {
         return blog;
     }
 
+    @Override
+    public List<Blog> findAllByCategory_IdAndStatus(Long id,Boolean status) {
+        return blogRepository.findAllByCategory_IdAndStatus(id,status);
+    }
+
 }
