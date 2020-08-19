@@ -26,17 +26,21 @@ import java.util.List;
     if (albumTitle == null) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    AlbumTitle newAlbum = albumTitleService.createNewObject(albumTitle);
+    AlbumTitle album = new AlbumTitle();
+    album.setName(albumTitle.getName());
+    album.setAccount(albumTitle.getAccount());
+    album.setStatus(albumTitle.getStatus());
+    AlbumTitle albumdatabase = albumTitleService.createNewObject(album);
+
     List<Image> images = albumTitle.getImages();
-    System.out.println(images);
 
     for (Image image: images){
 
-      image.setAlbumTitle(albumTitle);
+      image.setAlbumTitle(albumdatabase);
 
       imagesService.createNewObject(image);
     }
-    return new ResponseEntity<>(newAlbum, HttpStatus.OK);
+    return new ResponseEntity<>(albumdatabase, HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
