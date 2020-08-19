@@ -1,12 +1,13 @@
 package com.project.medium.model.albumImg;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.medium.model.auth.Account;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Getter
@@ -19,8 +20,7 @@ import java.util.Set;
     private Boolean status;
 
   @ManyToOne()
-  @JoinColumn(name = "account_id")
-    private Account account;
-  @OneToMany(mappedBy = "album_title")
+  private Account account;
+  @OneToMany()
   private List<Image> images;
 }

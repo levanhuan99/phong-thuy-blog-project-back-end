@@ -12,7 +12,9 @@ import javax.persistence.*;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String srcimage;
+    private String srcImg;
+
     @ManyToOne()
+
     private AlbumTitle albumTitle;
 }

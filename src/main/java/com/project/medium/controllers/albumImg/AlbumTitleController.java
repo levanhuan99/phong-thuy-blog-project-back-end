@@ -28,7 +28,12 @@ import java.util.List;
     }
     AlbumTitle newAlbum = albumTitleService.createNewObject(albumTitle);
     List<Image> images = albumTitle.getImages();
+    System.out.println(images);
+
     for (Image image: images){
+
+      image.setAlbumTitle(albumTitle);
+
       imagesService.createNewObject(image);
     }
     return new ResponseEntity<>(newAlbum, HttpStatus.OK);
@@ -38,7 +43,6 @@ import java.util.List;
   public ResponseEntity<?> getAlbum(@PathVariable Long id) {
     AlbumTitle albumTitle = albumTitleService.findById(id);
     return new ResponseEntity<AlbumTitle>(albumTitle, HttpStatus.OK);
-
 
   }
 
