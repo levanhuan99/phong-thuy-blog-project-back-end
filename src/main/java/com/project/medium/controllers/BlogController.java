@@ -64,6 +64,9 @@ public class BlogController {
             response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
             responses.add(response);
         }
+        if (responses != null){
+            Collections.reverse(responses);
+        }
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
@@ -154,6 +157,9 @@ public class BlogController {
             response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
             responses.add(response);
         }
+        if (responses != null){
+            Collections.reverse(responses);
+        }
         return new ResponseEntity<>(responses,HttpStatus.OK);
     }
 
@@ -173,6 +179,9 @@ public class BlogController {
             response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
             responses.add(response);
         }
+        if (responses != null){
+            Collections.reverse(responses);
+        }
         return new ResponseEntity<>(responses,HttpStatus.OK);
     }
 
@@ -191,6 +200,9 @@ public class BlogController {
             response.setAvatarUrl(blog.getAccount().getAvatar());
             response.setAmountComment(commentService.findAllCommentByBlog(blog).size());
             responses.add(response);
+        }
+        if (responses != null){
+            Collections.reverse(responses);
         }
         return new ResponseEntity<>(responses,HttpStatus.OK);
     }

@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     private static final String COMMENT_UNAUTHENTICATED_ROUTES = "/api/comments/?{[0-9]+}/blog";
 
     private static final String LIKE_UNAUTHENTICATED_ROUTES = "api/likes/?{[0-9]+}/blog";
+    private static final String LIST_IMAGES = "/api/v1/images/album/?{[0-9]+}";
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -122,7 +123,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         http.httpBasic().authenticationEntryPoint(restServicesEntryPoint());
         http.authorizeRequests()
                 //thêm đường dẫn api/blogdedtail là permit all
-                .antMatchers("/api/blogs/list", "/login", "/api/accounts/create",this.LIKE_UNAUTHENTICATED_ROUTES , this.BLOG_UNAUTHENTICATED_ROUTES, this.COMMENT_UNAUTHENTICATED_ROUTES).permitAll()
+                .antMatchers("/api/blogs/list", "/login", "/api/accounts/create","/sendSimpleEmail",LIST_IMAGES,this.LIKE_UNAUTHENTICATED_ROUTES , this.BLOG_UNAUTHENTICATED_ROUTES, this.COMMENT_UNAUTHENTICATED_ROUTES).permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
