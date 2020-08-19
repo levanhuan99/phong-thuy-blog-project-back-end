@@ -10,6 +10,8 @@ public interface BlogCrudService {
 
     Optional<Blog> findById(Long id);
 
+
+
     void delete(Blog blog);
 
     void save(Blog blog);
@@ -18,4 +20,6 @@ public interface BlogCrudService {
     Blog increaseLike(Blog blog);
 
     Blog decreaseLike(Blog blog);
+
+    List<Blog> findAllByCategory_IdAndStatus(Long id,Boolean status);
 }

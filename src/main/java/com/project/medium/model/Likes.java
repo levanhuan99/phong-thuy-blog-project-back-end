@@ -21,4 +21,8 @@ public class Likes {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
+
+    public Account getAccount() {
+        return account;
+    }
 }

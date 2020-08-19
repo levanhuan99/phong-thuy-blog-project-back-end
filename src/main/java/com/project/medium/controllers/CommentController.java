@@ -3,6 +3,7 @@ package com.project.medium.controllers;
 import com.project.medium.model.Blog;
 import com.project.medium.model.Comment;
 import com.project.medium.repository.BlogRepository;
+import com.project.medium.repository.CommentRepository;
 import com.project.medium.services.comment.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ public class CommentController {
 
     @Autowired
     BlogRepository blogRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
 
 
