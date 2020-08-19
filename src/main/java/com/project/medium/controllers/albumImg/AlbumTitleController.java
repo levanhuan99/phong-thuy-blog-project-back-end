@@ -43,10 +43,16 @@ import java.util.List;
     return new ResponseEntity<>(albumdatabase, HttpStatus.OK);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/account/{id}")
   public ResponseEntity<?> getAlbum(@PathVariable Long id) {
-    AlbumTitle albumTitle = albumTitleService.findById(id);
-    return new ResponseEntity<AlbumTitle>(albumTitle, HttpStatus.OK);
+
+    List <AlbumTitle> albums = albumTitleService.findAllByAccount_Id(id);
+    if (albums.size()==0) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    } else {
+        return new ResponseEntity<>(albums, HttpStatus.OK);
+    }
 
   }
 

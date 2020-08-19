@@ -35,4 +35,9 @@ import java.util.List;
 
         return imageRepository.save(model);
     }
+
+    @Override
+    public List<Image> findAllByAlbumTitle_Id(Long id) {
+        return imageRepository.findAllByAlbumTitle_Id(id);
+    }
 }

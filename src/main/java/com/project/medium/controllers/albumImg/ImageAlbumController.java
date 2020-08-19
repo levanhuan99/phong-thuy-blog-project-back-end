@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -41,5 +42,15 @@ public class ImageAlbumController {
             return new ResponseEntity<>(dataImage, HttpStatus.OK);
         }
     }
+    @GetMapping("/album/{id}")
+    public ResponseEntity<List<Image>> showListImagesByAlbumId(@PathVariable Long id){
+        List<Image> images = imageService.findAllByAlbumTitle_Id(id);
+        if (images.size()==0){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(images,HttpStatus.OK);
+        }
+    }
+
 
 }
