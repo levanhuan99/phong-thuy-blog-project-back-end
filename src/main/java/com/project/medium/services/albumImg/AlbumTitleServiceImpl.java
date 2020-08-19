@@ -31,4 +31,9 @@ import java.util.List;
     public AlbumTitle createNewObject(AlbumTitle model) {
         return albumTitleRepository.save(model);
     }
+
+    @Override
+    public List<AlbumTitle> findAllByAccount_Id(Long id) {
+        return albumTitleRepository.findAllByAccount_Id(id);
+    }
 }

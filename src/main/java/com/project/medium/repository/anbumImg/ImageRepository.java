@@ -1,12 +1,12 @@
 package com.project.medium.repository.anbumImg;
 
-import com.project.medium.model.albumImg.AlbumTitle;
+import com.project.medium.model.albumImg.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface AlbumTitleRepository extends JpaRepository<AlbumTitle, Long> {
-    List<AlbumTitle> findAllByAccount_Id(Long id);
+public interface ImageRepository extends JpaRepository<Image, Long> {
+    List<Image> findAllByAlbumTitle_Id(Long id);
 }

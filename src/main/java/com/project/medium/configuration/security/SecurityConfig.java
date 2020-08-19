@@ -25,7 +25,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -78,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
         List<Account> accounts = (List<Account>) accountService.findAll();
         List<Role> roles = (List<Role>) roleService.findAll();
-        if (roles.isEmpty()) {
+        if (roles.isEmpty()){
             Role roleAdmin = new Role();
             roleAdmin.setId(1L);
             roleAdmin.setName("ROLE_ADMIN");
@@ -90,18 +92,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
             roleService.save(roleCoach);
         }
 
-//        if (accounts.isEmpty()){
-//            Account admin = new Account();
-//            Set<Role> roleList = new HashSet<>();
-//            roleList.add(new Role(1L,"ROLE_ADMIN"));
-//            roleList.add(new Role(2L,"ROLE_USER"));
-//            admin.setEmail("admin@gmail.com");
-//            admin.setNickName("admin");
-//            admin.setPassword("admin@gmail.com");
-//            admin.setPhoneNumber("0972522048");
-//            admin.setRoles(roleList);
-//            accountService.save(admin);
-//        }
+        if (accounts.isEmpty()){
+            Account admin = new Account();
+            Set<Role> roleList = new HashSet<>();
+            roleList.add(new Role(1L,"ROLE_ADMIN"));
+            roleList.add(new Role(2L,"ROLE_USER"));
+            admin.setEmail("admin@gmail.com");
+            admin.setNickName("admin");
+            admin.setPassword("admin");
+            admin.setPhoneNumber("0972522048");
+            //thuy them code defaul avatar cho admin
+            admin.setAvatar("https://ramenparados.com/wp-content/uploads/2019/03/no-avatar-png-8.png");
+
+            admin.setRoles(roleList);
+            accountService.save(admin);
+        }
     }
 
     @Autowired
@@ -130,12 +135,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200")
-                .allowedMethods("GET", "POST", "DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .exposedHeaders("Authorization");
-//                .maxAge( 3600 );
+        corsRegistry.addMapping( "/**" )
+                .allowedOrigins( "http://localhost:4200" )
+                .allowedMethods( "GET", "POST", "DELETE" )
+                .allowedHeaders( "*" )
+                .allowCredentials( true )
+                .exposedHeaders( "Authorization" )
+                .maxAge( 3600 );
     }
 }
