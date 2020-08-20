@@ -44,7 +44,7 @@ import java.util.List;
   }
 
   @GetMapping("/account/{id}")
-  public ResponseEntity<?> getAlbum(@PathVariable Long id) {
+  public ResponseEntity<?> getAlbums(@PathVariable Long id) {
 
     List <AlbumTitle> albums = albumTitleService.findAllByAccount_Id(id);
     if (albums.size()==0) {
@@ -54,6 +54,15 @@ import java.util.List;
         return new ResponseEntity<>(albums, HttpStatus.OK);
     }
 
+  }
+  @GetMapping("/account/{id}/album")
+  public ResponseEntity<AlbumTitle> getAlbum(@PathVariable Long id){
+    AlbumTitle albumTitle=albumTitleService.findById(id);
+    if (albumTitle==null){
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }else {
+      return new ResponseEntity<>(albumTitle,HttpStatus.OK);
+    }
   }
 
 }
